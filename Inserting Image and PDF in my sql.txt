@@ -1,0 +1,64 @@
+TINYBLOB, BLOB, MEDIUMBLOB, and LONGBLOB in MySQL
+
+A BLOB is a binary large object that can hold a variable amount of binary data.
+There are four types of BLOB that differ in the maximum length of value to be held: TINYBLOB, BLOB, MEDIUMBLOB, and LONGBLOB.
+Here are the details on the maximum lengths and required storages:
+
+TINYBLOB: A binary large object column with a maximum length of 255 (2^8 - 1) bytes. Each TINYBLOB value is stored using a one-byte length prefix that indicates the number of bytes in the value.
+BLOB: A binary large object column with a maximum length of 65535 (2^16 - 1) bytes, or 64KB in storage. Each BLOB value is stored using a two-byte length prefix that indicates the number of bytes in the value.
+MEDIUMBLOB: A binary large object column with a maximum length of 16777215 (2^24 - 1) bytes, or 16MB in storage. Each MEDIUMBLOB value is stored using a three-byte length prefix that indicates the number of bytes in the value.
+LONGBLOB: A binary large object column with a maximum length of 4294967295 (2^32 - 1) bytes, or 4GB in storage. Each LONGBLOB value is stored using a four-byte length prefix that indicates the number of bytes in the value.
+
+Table Creation
+The following is a SQL statement for table creation in MySQL database.
+
+CREATE TABLE boraji.user_profile (
+  USER_ID INT NOT NULL AUTO_INCREMENT,
+  NAME VARCHAR(45) NOT NULL,
+  IMAGE BLOB NULL,
+  PRIMARY KEY (USER_ID));
+Save image into database example
+Here is an example of inserting an image file into a database.
+
+ImageFileSaveExample.java
+
+package com.boraji.tutorial.jdbc;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+/**
+ * @author imssbora
+ */
+public class ImageFileSaveExample {
+   public static void main(String[] args) {
+      String jdbcUrl = "jdbc:mysql://localhost:3306/BORAJI";
+      String username = "root";
+      String password = "admin";
+      String sql = "INSERT INTO USER_PROFILE(NAME,IMAGE) VALUES(?,?)";
+
+      try (Connection conn = DriverManager.getConnection(jdbcUrl, username, password);) {
+         File image = new File("sample.jpg");
+         try (FileInputStream inputStream = new FileInputStream(image);
+               PreparedStatement stmt = conn.prepareStatement(sql);) {
+
+            stmt.setString(1, "Mike");
+            stmt.setBinaryStream(2, inputStream, image.length());
+            stmt.executeUpdate();
+            System.out.println("Image saved successfully.");
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
+      } catch (SQLException e) {
+         e.printStackTrace();
+      }
+   }
+}
+Output
+
+Image saved successfully.
