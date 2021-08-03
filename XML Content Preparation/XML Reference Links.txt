@@ -1,0 +1,13 @@
+General References regarding XML
+1. https://www.javatpoint.com/xml-tutorial
+2. https://www.w3schools.com/xml/default.asp
+3. https://www.geeksforgeeks.org/xml-basics/
+
+Difference between CSV, XML, JSON
+1. https://applerepairstation.com/csv-vs-xml-vs-json-which-is-the-best-response-data-format/
+
+Online XML Validator
+1. http://xmlvalidator.new-studio.org/
+2. https://www.liquid-technologies.com/online-xsd-validator 
+
+
