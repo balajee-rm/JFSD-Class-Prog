@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>  
+
+<servlet>  
+<servlet-name>s1</servlet-name>  
+<servlet-class>DemoServlet</servlet-class>  
+</servlet>  
+  
+<servlet-mapping>  
+<servlet-name>s1</servlet-name>  
+<url-pattern>/welcome</url-pattern>  
+</servlet-mapping>  
+
+<servlet>  
+<servlet-name>s2</servlet-name>  
+<servlet-class>DemoPage2</servlet-class>  
+</servlet>  
+  
+<servlet-mapping>  
+<servlet-name>s2</servlet-name>  
+<url-pattern>/page2</url-pattern>  
+</servlet-mapping>  
+
+</web-app>  
