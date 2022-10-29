@@ -1,0 +1,53 @@
+1. server - microservice
+	- springstarterproject - name with java version 8 - select eureka server
+	- goto main class - @EnableEurekaServer
+	- goto application.properties and add follwing
+		spring.application.name=EurekaServer
+		server.port=8761
+		eureka.client.register-with-eureka=false
+		eureka.client.fetch-registry=false
+	- Run Application
+
+2. client1 - store the value of currency - inr to usd - 80rs.
+	- springstarterproject - create client1 - select eureka client and spring web
+	- goto pom.xml and add dependency
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<!-- postgresql Dependency -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.30</version>
+		</dependency>
+	- goto application.properties
+		spring.application.name=CurrencyValue
+		server.port=8080
+		eureka.client.service-url.default-zone=http://localhost:8761/eureka
+		spring.jpa.show-sql=true
+
+		spring.mvc.view.prefix: /WEB-INF/jsp/
+		spring.mvc.view.suffix: .jsp
+
+		spring.datasource.url=jdbc:mysql://localhost:3306/klu111
+		spring.datasource.username=root
+		spring.datasource.password=Teja@123
+
+		spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+		spring.jpa.hibernate.ddl-auto=update
+		spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
+	- goto main file add @EnableDiscoveryClient
+	- create entity class (for table)
+	- create JpaRepository Interface (for api - save(), find())
+	- create controller to use API's
+
+3. client2 - retrieve the value from client 1 and it will calculate the total for the quantity - quantity
+ 	- Create client2
+	- goto application.properties and enter following lines
+		spring.application.name=CurrencyConverter
+		server.port=8082
+		eureka.client.service-url.default-zone=http://localhost:8761/eureka
+	- goto main file and add @EnableDiscoveryClient
+	- create the pojo class - Conversion
+	- create controller
